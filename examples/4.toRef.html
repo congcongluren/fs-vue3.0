@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+
+  <script>
+    let { reactive, shallowReactive, readonly, shallowReadonly, effect, ref, shallowRef, toRef, toRefs } = VueReactivity;
+
+    let proxy = reactive({name: '李四'});
+    
+    let r = toRef(proxy, 'name');
+
+    effect(()=>{
+      app.innerHTML = r.value;
+    })
+    
+    
+    
+    setTimeout(() => {
+      proxy.name = '张三'
+    }, 1000);
+  </script>
+</body>
+</html>
