@@ -62,7 +62,7 @@ export function toRef(target, key) {
 }
 
 export function toRefs(object) { // object 可能传递一个数组，或者对象
-  const ret = isArray(object) ? new Array(object.length)  ? {};
+  const ret = isArray(object) ? new Array(object.length) : {} ;
   for(let key in object) {
     ret[key] = toRef(object, key);
   }

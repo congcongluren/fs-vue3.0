@@ -3,7 +3,7 @@
 const fs = require('fs');
 const execa = require('execa'); // 开启子进程， 使用rollup打包
 
-const targets = 'reactivity'
+const targets = 'runtime-dom'
 
 build(targets);
 
