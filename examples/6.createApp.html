@@ -22,10 +22,12 @@
     const { createApp } = VueRuntimeDOM;
     let App = {
       setup(props, content){
-        return
+        return () => {
+          console.log(props, content, 'state render');
+        }
       },
       render(proxy){
-        console.log('render');
+        console.log(proxy, 'component render');
       }
     }
 

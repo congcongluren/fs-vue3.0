@@ -1,16 +1,21 @@
 import { ShapeFlags } from "@vue/shared/src";
 import { createAppAPI } from "./apiCreateApp"
+import { createComponentInstance, setupComponent } from "./component";
 
 export function createRenderer(rendererOptions) { // 告诉core怎么渲染
   // 创建一个渲染器
+  const setupRenderEffect = (instance) => {
+    instance.render()
+  }
 
   const mountComponent = (initialVNode, container) => {
     // 组件的渲染流程 最核心调用setup 拿到返回值，获取render函数返回的结果来渲染
     // 1.现有实例
-    
+    const instance = (initialVNode.component = createComponentInstance(initialVNode))
     // 2.需要将数据解析到实例上
+    setupComponent(instance); // 添加 state props attrs render 。。。
     // 3.创建一个effect， 让render函数渲染
-
+    setupRenderEffect(instance);
   }
   const processComponent = (n1, n2, container) =>{
     if (n1 === null) { // 组件没有上一次的虚拟节点
