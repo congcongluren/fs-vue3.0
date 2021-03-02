@@ -24,6 +24,7 @@ export function createApp(rootComponent, rootProps = null) {
   return app;
 }
 
+export * from '@vue/runtime-core';
 
 // 用户调用的时runtime-dom  =》 runtime-core
 // runtime-dom 是为了解决平台差异
