@@ -91,6 +91,8 @@ export function createRenderer(rendererOptions) { // 告诉core怎么渲染
     if (n1 === null) {
       mountElement(n2, container);
     } else {
+      console.log('更新');
+      
       // 元素更新
     }
   }

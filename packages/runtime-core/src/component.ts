@@ -54,8 +54,6 @@ function setUpStatefulComponent(instance) {
     // Component.render(instance.proxy);
     finishComponentSetup(instance); // 完成组件的启动
   }
-
-  console.log(instance);
 }
 
 function handleSetupResult(instance, setupResult) {

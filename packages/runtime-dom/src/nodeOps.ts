@@ -12,8 +12,8 @@ export const nodeOps = {
     parent.insertBefore(child, anchor);
   },
   querySelector: selector=> document.querySelector(selector),
-  setElementText: (el, text) => el.textContent = text,
   // 文本操作
+  setElementText: (el, text) => el.textContent = text,
   createText: text=> document.createTextNode(text),
   setText: (node, text)=>node.value = text,
 
