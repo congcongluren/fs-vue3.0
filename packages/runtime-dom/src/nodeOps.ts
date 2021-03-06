@@ -16,5 +16,5 @@ export const nodeOps = {
   setElementText: (el, text) => el.textContent = text,
   createText: text=> document.createTextNode(text),
   setText: (node, text)=>node.value = text,
-
+  nextSibling:(node) => node.nextSibling
 }
