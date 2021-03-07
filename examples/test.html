@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let arr = [2, 3, 
+    1, 5, 6, 8, 7, 9, 4]
+
+    function getSequence(arr) {
+      let len = arr.length;
+      const result = [0];
+      const p = arr.slice();
+
+
+      let start, end, middle;
+
+      for (let i = 0; i < len; i++) {
+        const arrI = arr[i];
+        if (arrI !== 0) {
+          let resultLastIndex = result[result.length - 1];
+          if (arr[resultLastIndex] < arrI) {
+            p[i] = resultLastIndex; // 标记当前前一个人的索引
+            result.push(i);
+            continue;
+          }
+
+          // 二分查找，找到比当前值大的那一个
+          start = 0;
+          end = result.length - 1;
+          while (start < end) {
+            middle = ((start + end) / 2) | 0; // 找到中间位置的前一个
+            if (arr[result[middle]] < arrI) {
+              start = middle + 1;
+            } else {
+              end = middle;
+            }
+          }
+
+          if (arrI < arr[result[start]]) {
+            if (start > 0) {
+              p[i] = result[start - 1] // 标记当前前一个人的索引 
+            }
+            result[start] = i;
+          }
+
+        }
+      }
+
+      let len1 = result.length;
+      let last = result[len1 - 1];
+      while (len1-- > 0) {
+        result[start] = last;
+        last = p[last];
+
+      }
+
+      return result
+    }
+
+    console.log(
+      getSequence(arr)
+    );
+  </script>
+</body>
+
+</html>

@@ -72,7 +72,7 @@ export function createRenderer(rendererOptions) { // 告诉core怎么渲染
     }
   }
 
-  const mountElement = (vNode, container, anchor = null) => {
+  const mountElement = (vNode, container, anchor = null) => { // 初始化操作
     // 递归渲染
     const { props, shapeFlag, type, children } = vNode;
     let el = vNode.el = hostCreateElement(type);
@@ -178,20 +178,38 @@ export function createRenderer(rendererOptions) { // 告诉core怎么渲染
         keyToNewIndexMap.set(childVNode.key, i);
       }
 
+      const toBePatched = e2 - s2 + 1;
+      const newIndexToOldIndexMap = new Array(toBePatched).fill(0);
+
       // 老的里面查找，有没有复用的
-      for(let i = s1; i<=e1; i++) {
+      for (let i = s1; i <= e1; i++) {
         const oldVNode = c1[i];
         let newIndex = keyToNewIndexMap.get(oldVNode.key);
         if (newIndex === undefined) { // 老的不在新的里面
           unmount(oldVNode);
         } else {
-          patch(oldVNode, c2[newIndex],el);
+          // 新的和旧的关系，索引关系
+          newIndexToOldIndexMap[newIndex - s2] = i + 1;
+          patch(oldVNode, c2[newIndex], el);
         }
       }
-      
+
+      for (let i = toBePatched - 1; i >= 0; i--) {
+        let currentIndex = i + s2; // 找到h对应的索引
+        let child = c2[currentIndex];// 找到h对应的节点
+        let anchor = currentIndex + 1 < c2.length ? c2[currentIndex+1].el : null;
+        if (newIndexToOldIndexMap[i] === 0) {
+          // 是0说明之前不存在
+          patch(null, child, el, anchor);
+        }else {
+          hostInsert(child.el, el, anchor);
+        }
+      }
+
+
       // 最后就是移动节点，将新增的节点插入
-      
-      
+
+
     }
 
 
